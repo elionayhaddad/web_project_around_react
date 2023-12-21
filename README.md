@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Projeto 5:  EUA Afora
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Visão geral
 
-## Available Scripts
+**Descrição**
+**Tecnologias e Técnicas**
+**Página no GitHub**
 
-In the project directory, you can run:
+### Descrição
 
-### `npm start`
+O projeto EUA Afora visa mostrar o mundo existente além das fronteiras do local onde se vive, apresentando diversos lugares em países diferentes com suas paisagens distintas e peculiares. A página exibe um perfil de um explorador que mostra os lugares dos quais ele já visitou. Cada lugar apresentado é postado na forma de um cartão que mostra a imagem do local, e logo abaixo uma descrição informando o nome do mesmo e ao lado um botão de reação. Porém, dessa vez, o projeto é portado para o React.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Tecnologias e Técnicas
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### React e Variáveis de estado
 
-### `npm test`
+Para portar algumas das funcionalidades, foram utilizadas variáveis de estado a partir de hooks, que possibilitam o uso dos recursos React sem a necessidade de criar uma classe. Foram utilizados hooks nas seguintes funcionalidades: aberturas e fechamento de pop-ups e nas chamadas "fetch" da api.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Unidades de Medidas Relativas e Consultas de Mídia
 
-### `npm run build`
+Usado novamente para trazer o conceito responsivo ao projeto, foram usadas as unidades de medidas relativas - como "%", valores decimais para a altura de linha, além das propriedades "max-width" e "max-height" - em conjunto com consultas de mídia e seus pontos de interrupção estabelecidos de acordo com as resoluções apresentadas no Figma (resolução mínima: 320px e resolução máxima: 1280px).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Grid Layout e Flexbox
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+O Grid Layout se responsabilizou pelo o alinhamento dos cartões, que ocupam grande parte do conteúdo principal, enquanto o Flex se responsabilizou pelo aninhamento de blocos secundários no projeto.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Fontes Externas
 
-### `npm run eject`
+Conforme exigido pelo projeto, neste projeto foi usado a fonte 'Inter', que foi exportada através de @font-face.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Metodologia BEM
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Mais uma vez, foi utilizado a estrutura de arquivos da metodologia BEM: a separação do código em diferentes arquivos .css, armazenados em diferentes diretórios: blocks (contém toda a estilização dos blocos separados em vários arquivos .css correspondentes a cada um deles.), imagens (contém todas as imagens do projeto), páginas (contém index.css que conecta todos os blocos.css), vendor (contém materiais externos para o projeto, como fontes e normalize.css), e desta vez, script, que contém toda a parte de programação lógica do projeto.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### JavaScript e Formulário
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Embora possuam visibilidade na página, através dos pop-ups, eles ainda estão sendo portados.
 
-## Learn More
+### Páginas do GitHub
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Acredito que depois de ter um breve resumo do que se trata o projeto, e das técnicas/tecnologias usadas para a sua construção, nada será mais esclarecedor que ver com os próprios olhos o resultado final do website. Você poderá conferir através do link:
+https://elionayhaddad.github.io/web_project_4_ptbr/
