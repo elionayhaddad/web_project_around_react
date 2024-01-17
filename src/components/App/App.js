@@ -1,20 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../Header";
 import Main from "../Main";
 import Footer from "../Footer";
-import PopupWithForm from "../PopupWithForm";
+import EditProfilePopup from "../EditProfilePopup";
+import EditAvatarPopup from "../EditAvatarPopup";
+import AddPlacePopup from "../AddPlacePopup";
 import ImagePopup from "../ImagePopup";
+import DeleteCardPopup from "../DeleteCardPopup";
+import api from "../../utils/api";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { type } from "@testing-library/user-event/dist/type";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(false);
+  const [isRemCardPopupOpen, setIsRemCardPopupOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState([]);
+  const [cards, setCards] = useState([]);
+  const [element, setElement] = useState([]);
+
+  useEffect(() => {
+    api
+      .get("users/me")
+      .then((user) => {
+        setCurrentUser(user);
+      })
+      .catch((erro) => {
+        console.log("Quebrou no [GET] /users/me");
+        console.log(erro);
+      });
+
+    api
+      .get("cards")
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((erro) => {
+        console.log("Quebrou no [GET] /cards");
+        console.log(erro);
+        setCards([]);
+      });
+  }, []);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
-
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
   }
@@ -25,111 +57,118 @@ function App() {
     setSelectedCard({ name, url });
   }
 
+  function handleRemCardClick() {
+    setIsRemCardPopupOpen(true);
+  }
+
   function closeAllPopups() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setSelectedCard(false);
+    setIsRemCardPopupOpen(false);
+  }
+
+  function handleUpdateUser(data) {
+    api
+      .setUserInfo(data)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((erro) => {
+        console.log("Quebrou no [PATCH] /users/me");
+        console.log(erro);
+      });
+
+    closeAllPopups();
+  }
+
+  function handleUpdateAvatar(data) {
+    api
+      .updateAvatar(data)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((erro) => {
+        console.log("Quebrou no [PATCH] /users/me/avatar");
+        console.log(erro);
+      });
+
+    closeAllPopups();
+  }
+
+  function getCard(card) {
+    setElement(card);
+  }
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  }
+
+  function handleAddPlaceSubmit(card) {
+    api
+      .createCards(card)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+      })
+      .catch((erro) => {
+        console.log("Quebrou no [POST] /cards");
+        console.log(erro);
+      });
+
+    closeAllPopups();
   }
 
   return (
     <div className="App">
-      <Header />
-      <Main
-        onEditProfileClick={handleEditProfileClick}
-        onAddPlaceClick={handleAddPlaceClick}
-        onEditAvatarClick={handleEditAvatarClick}
-        onCardClick={handleCardClick}
-      />
-      <ImagePopup
-        name="image"
-        card={selectedCard}
-        onClose={closeAllPopups}
-      ></ImagePopup>
+      <CurrentUserContext.Provider value={currentUser}>
+        <Header />
+        <Main
+          onEditProfileClick={handleEditProfileClick}
+          onAddPlaceClick={handleAddPlaceClick}
+          onEditAvatarClick={handleEditAvatarClick}
+          onCardClick={handleCardClick}
+          onRemCardClick={handleRemCardClick}
+          cards={cards}
+          onCardLike={handleCardLike}
+          onCardDelete={getCard}
+        />
 
-      <PopupWithForm
-        name="edit-profile"
-        title="Editar Perfil"
-        textButton="Salvar"
-        isOpen={isEditProfilePopupOpen}
-        isClose={closeAllPopups}
-      >
-        <fieldset className="popup__field">
-          <input
-            className="popup__input name-input"
-            required
-            type="text"
-            name="name"
-            placeholder="Nome"
-          />
-          <span className="popup__input-error name-input-error"></span>
-        </fieldset>
-        <fieldset className="popup__field">
-          <input
-            className="popup__input role-input"
-            type="text"
-            required
-            name="role"
-            placeholder="Função"
-          />
-          <span className="popup__input-error role-input-error"></span>
-        </fieldset>
-      </PopupWithForm>
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+        />
 
-      <PopupWithForm
-        name="edit-avatar"
-        title="Atualizar foto do perfil"
-        textButton="Salvar"
-        isOpen={isEditAvatarPopupOpen}
-        isClose={closeAllPopups}
-      >
-        <fieldset className="popup__field">
-          <input
-            className="popup__input input-photo-user"
-            required
-            type="url"
-            name="link"
-            placeholder="URL da imagem"
-            minlength="1"
-          />
-          <span className="popup__input-error link-input-error"></span>
-        </fieldset>
-      </PopupWithForm>
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />
 
-      <PopupWithForm
-        name="create-card"
-        title="Novo Local"
-        textButton="Criar"
-        isOpen={isAddPlacePopupOpen}
-        isClose={closeAllPopups}
-      >
-        <fieldset className="popup__field">
-          <input
-            className="popup__input title-input"
-            required
-            type="text"
-            name="title"
-            placeholder="Título"
-          />
-          <span className="popup__input-error title-input-error"></span>
-        </fieldset>
-        <fieldset className="popup__field">
-          <input
-            className="popup__input link-input"
-            required
-            type="url"
-            id="link-input"
-            name="link"
-            placeholder="URL da imagem"
-            minlength="1"
-          />
-          <span className="popup__input-error link-input-error"></span>{" "}
-        </fieldset>
-      </PopupWithForm>
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlaceSubmit={handleAddPlaceSubmit}
+        />
 
-      <PopupWithForm name="delete-Card" title="Tem certeza?" textButton="Sim" />
+        <ImagePopup
+          name="image"
+          card={selectedCard}
+          onClose={closeAllPopups}
+        ></ImagePopup>
 
-      <Footer />
+        <DeleteCardPopup
+          isOpen={isRemCardPopupOpen}
+          onClose={closeAllPopups}
+          card={element}
+        />
+
+        <Footer />
+      </CurrentUserContext.Provider>
     </div>
   );
 }

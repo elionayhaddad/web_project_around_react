@@ -12,13 +12,19 @@ export default function PopupWithForm(props) {
     >
       <div className="popup__overflow" id="overflow"></div>
       <img
-        className="button button_close"
+        className={`button button_close button_close_${props.name}`}
         src={buttonClose}
         alt="botão fechar"
         onClick={props.isClose}
       />
-      <form className="popup__container" name={props.name}>
-        <h3 className="popup__title">{props.title}</h3>
+      <form
+        className={`popup__container popup__container_${props.name}`}
+        name={props.name}
+        onSubmit={props.onSubmit}
+      >
+        <h3 className={`popup__title popup__title_${props.name}`}>
+          {props.title}
+        </h3>
         {props.children}
         <button className="button button_submit" type="submit">
           {props.textButton}

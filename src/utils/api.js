@@ -16,10 +16,67 @@ class Api {
     });
   }
 
-  updateImageUser(url) {
+  setUserInfo(data) {
+    return fetch(`${this.baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: this.headers,
+      body: JSON.stringify({
+        name: data.name,
+        about: data.about,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject();
+    });
+  }
+
+  createCards(card) {
+    return fetch(`${this.baseUrl}/cards`, {
+      method: "POST",
+      body: JSON.stringify(card),
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject();
+    });
+  }
+
+  changeLikeCardStatus(cardId, status) {
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+      method: `${status ? "PUT" : "DELETE"}`,
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject();
+    });
+  }
+
+  deleteCards(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject();
+    });
+  }
+
+  updateAvatar(url) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      body: JSON.stringify({ avatar: url }),
+      body: JSON.stringify(url),
       headers: this.headers,
     }).then((res) => {
       if (res.ok) {

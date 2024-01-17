@@ -12,6 +12,9 @@
 .card__remove-icon_hidden {
   visibility: hidden;
 }
+.card__remove-icon_visible {
+  visibility: visible;
+}
 .card__remove-icon {
   cursor: pointer;
   position: absolute;
@@ -61,7 +64,7 @@
   flex-direction: column;
   align-items: center;
 }
-.card__like {
+.card__like .card__like_inactive {
   cursor: pointer;
   width: 100%;
   max-width: 21px;
