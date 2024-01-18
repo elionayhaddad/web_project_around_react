@@ -9,7 +9,6 @@ import ImagePopup from "../ImagePopup";
 import DeleteCardPopup from "../DeleteCardPopup";
 import api from "../../utils/api";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { type } from "@testing-library/user-event/dist/type";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -108,6 +107,15 @@ function App() {
     });
   }
 
+  function handleCardDelete(e) {
+    e.preventDefault();
+    api.deleteCards(element._id).then(() => {
+      const newArrCards = cards.filter((card) => card._id !== element._id);
+      setCards(newArrCards);
+      closeAllPopups();
+    });
+  }
+
   function handleAddPlaceSubmit(card) {
     api
       .createCards(card)
@@ -165,6 +173,7 @@ function App() {
           isOpen={isRemCardPopupOpen}
           onClose={closeAllPopups}
           card={element}
+          onSubmit={handleCardDelete}
         />
 
         <Footer />
