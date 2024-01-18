@@ -1,7 +1,7 @@
 import React from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import buttonLike from "../../images/like.svg";
-import iconRemoveCard from "../../images/excluir-icon.png";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import buttonLike from "../images/like.svg";
+import iconRemoveCard from "../images/excluir-icon.png";
 
 export default function Card({
   key,
