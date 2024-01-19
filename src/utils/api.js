@@ -4,8 +4,20 @@ class Api {
     this.headers = headers;
   }
 
-  get(path) {
-    return fetch(`${this.baseUrl}/${path}`, {
+  getUserInfo() {
+    return fetch(`${this.baseUrl}/users/me`, {
+      method: "GET",
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject();
+    });
+  }
+
+  getCard() {
+    return fetch(`${this.baseUrl}/cards`, {
       method: "GET",
       headers: this.headers,
     }).then((res) => {

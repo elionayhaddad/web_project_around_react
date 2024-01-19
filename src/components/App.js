@@ -22,7 +22,7 @@ function App() {
 
   useEffect(() => {
     api
-      .get("users/me")
+      .getUserInfo()
       .then((user) => {
         setCurrentUser(user);
       })
@@ -32,7 +32,7 @@ function App() {
       });
 
     api
-      .get("cards")
+      .getCard()
       .then((data) => {
         setCards(data);
       })
@@ -66,6 +66,12 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setSelectedCard(false);
     setIsRemCardPopupOpen(false);
+  }
+
+  function handleEscClose(e) {
+    if (e.key === "Escape") {
+      window.addEventListener("keyup", closeAllPopups);
+    }
   }
 
   function handleUpdateUser(data) {
@@ -131,7 +137,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" onKeyDown={handleEscClose}>
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
         <Main
