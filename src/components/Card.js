@@ -46,12 +46,14 @@ export default function Card({
           onClick={handleDeleteClick}
         />
       </div>
-      <img
-        className="card__image"
-        src={card.link}
-        alt={card.name}
-        onClick={handleClick}
-      />
+      <div className="card__image-container">
+        <img
+          className="card__image"
+          src={card.link}
+          alt={card.name}
+          onClick={handleClick}
+        />
+      </div>
       <div className="card__description">
         <h2 className="card__title">{card.name}</h2>
         <div className="card__like-container">

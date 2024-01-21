@@ -59,19 +59,18 @@ function App() {
   function handleRemCardClick() {
     setIsRemCardPopupOpen(true);
   }
-
+  function handleEscClose(e) {
+    if (e.key === "Escape") {
+      window.addEventListener("keyup", closeAllPopups);
+    }
+  }
   function closeAllPopups() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setSelectedCard(false);
     setIsRemCardPopupOpen(false);
-  }
-
-  function handleEscClose(e) {
-    if (e.key === "Escape") {
-      window.addEventListener("keyup", closeAllPopups);
-    }
+    window.removeEventListener("keyup", closeAllPopups);
   }
 
   function handleUpdateUser(data) {
@@ -137,7 +136,7 @@ function App() {
   }
 
   return (
-    <div className="App" onKeyDown={handleEscClose}>
+    <div className="App" onKeyDown={(e) => handleEscClose(e)} tabIndex={-1}>
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
         <Main
