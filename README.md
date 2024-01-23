@@ -51,4 +51,4 @@ Embora possuam visibilidade na página, através dos pop-ups, eles ainda estão 
 ### Páginas do GitHub
 
 Acredito que depois de ter um breve resumo do que se trata o projeto, e das técnicas/tecnologias usadas para a sua construção, nada será mais esclarecedor que ver com os próprios olhos o resultado final do website. Você poderá conferir através do link:
-http://localhost:3000/web_project_around_react
+https://elionayhaddad.github.io/web_project_around_react/
