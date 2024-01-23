@@ -12,9 +12,21 @@ O projeto EUA Afora visa mostrar o mundo existente além das fronteiras do local
 
 ### Tecnologias e Técnicas
 
-### React e Variáveis de estado
+#### React e Variáveis de estado
 
-Para portar algumas das funcionalidades, foram utilizadas variáveis de estado a partir de hooks, que possibilitam o uso dos recursos React sem a necessidade de criar uma classe. Foram utilizados hooks nas seguintes funcionalidades: aberturas e fechamento de pop-ups e nas chamadas "fetch" da api.
+Para portar algumas das funcionalidades, foram utilizadas variáveis de estado a partir de hooks, que possibilitam o uso dos recursos React sem a necessidade de criar uma classe. Foram utilizados hooks nas seguintes funcionalidades: aberturas e fechamento de pop-ups, nas chamadas "fetch" da api para criação ou remoção de um cartão, edição de perfil do usuário - sendo incluso a atualização do seu avatar - curtidas ou descurtidas e contagem das reações.
+
+#### Refs
+
+Para esta edição do projeto, foram usadas várias refs() nos componentes dos pop-ups de criação de cartão e atualização do avatar do usuário.
+
+#### Props
+
+O uso das props foi eficaz para transferir variáveis e funções de um componente para outro.
+
+#### Elevação do State
+
+Também foi usado para esta nova versão do projeto sob a ação do React, a fim de que, sendo elevado para a página principal, o state possa ser usado facilmente por mais de um componente.
 
 #### Unidades de Medidas Relativas e Consultas de Mídia
 
@@ -39,4 +51,4 @@ Embora possuam visibilidade na página, através dos pop-ups, eles ainda estão 
 ### Páginas do GitHub
 
 Acredito que depois de ter um breve resumo do que se trata o projeto, e das técnicas/tecnologias usadas para a sua construção, nada será mais esclarecedor que ver com os próprios olhos o resultado final do website. Você poderá conferir através do link:
-https://elionayhaddad.github.io/web_project_4_ptbr/
+http://localhost:3000/web_project_around_react
